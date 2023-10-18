@@ -1,4 +1,4 @@
-# THE ULTIMATE SHOWDOWN - Rock, paper, scissors
+# THE ULTIMATE SHOWDOWN - Rock vs. Paper vs. Scissors
 
 A simple app where two players can face off in a rock, paper, scissors match.
 The rules are simple, one game decides the winner.
@@ -59,7 +59,7 @@ A game ID is returned that you can send to your opponent
 }
 ```
 
-### POST /api/games/{id}/join
+### POST /api/games/:id/join
 
 Joins a game with the game ID you recieved from your opponent.
 Input the player name in the request-body. Returns if you are able to join the game or not.
@@ -70,7 +70,7 @@ Input the player name in the request-body. Returns if you are able to join the g
 }
 ```
 
-### POST /api/games/{id}/move
+### POST /api/games/:id/move
 
 Make your move. Input your player name and the move you want to make. As well as having the game ID as a parameter.
 Only "Rock", "Paper" and "Scissors" are valid moves in this game.
@@ -82,7 +82,7 @@ Only "Rock", "Paper" and "Scissors" are valid moves in this game.
 }
 ```
 
-### GET /api/games/{id}
+### GET /api/games/:id
 
 Returns the current state of the game by providing the game ID as a parameter. If both players have made their move a victor is crowned.
 No input in the request-body.
