@@ -1,24 +1,35 @@
-import Fastify from "fastify";
+import express from "express";
 
 import { projectDependencies } from "./config/projectDependencies";
-import { apiRouter } from "./frameworks/web/routes";
+import { apiRouter } from "./frameworks/routes";
 
-const PORT = 3000;
-const API_VERSION = "v1";
+import type { Request, Response, NextFunction } from "express";
+import { AppError } from "./config/error/appError";
+import { globalErrorHandler } from "./config/error/globalErrorHandler";
 
-const fastify = Fastify({ logger: false });
+const PORT = Bun.env.PORT || 3000;
+const API_VERSION = Bun.env.API_VERSION || "v1";
 
-const router = apiRouter(projectDependencies);
+const app = express();
 
-fastify.register(router, { prefix: `/api/${API_VERSION}` });
+app.use(express.json());
 
-const start = async () => {
-	try {
-		await fastify.listen({ port: PORT });
-	} catch (error) {
-		fastify.log.error(error);
+app.use(`/api/${API_VERSION}`, apiRouter(projectDependencies));
+
+app.all("*", (req: Request, res: Response, next: NextFunction) => {
+	next(new AppError(404, `Can't find ${req.originalUrl} on this server`));
+});
+
+app.use(globalErrorHandler);
+
+const server = app.listen(PORT, () => {
+	console.log(`⚡️ Listening on port ${PORT}...`);
+});
+
+process.on("unhandledRejection", (err: TypeError) => {
+	console.log("UNHANDLED REJECTION! Shutting down...");
+	console.log(err.name, err.message);
+	server.close(() => {
 		process.exit(1);
-	}
-};
-
-start();
+	});
+});
