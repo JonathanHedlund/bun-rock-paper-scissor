@@ -1,0 +1,20 @@
+{
+  "name": "test",
+  "module": "server.js",
+  "type": "module",
+  "outDir": "./build",
+  "rootDir": "./src",
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "fastify": "^4.24.2",
+    "fastify-cli": "^5.8.0"
+  },
+  "scripts": {
+    "start": "bun run server.ts"
+  }
+}
