@@ -1,19 +1,19 @@
-import { GameStatus, type Game } from "../../../entities/gameEntity";
+import { GameStatus } from "../../../entities/gameEntity";
+
+import type { Game } from "../../../entities/gameEntity";
+import { AppError } from "../../../config/error/appError";
 import type { GameRepository } from "../../contracts/gameRepository";
 
 export const createGame = (gameRepository: GameRepository, name: string) => {
-	const execute = async () => {
-		const game: Game = {
-			id: crypto.randomUUID(),
-			status: GameStatus.PENDING_PLAYER,
-			players: [{ name }],
-		};
-		console.log(game);
-		await gameRepository.add(game);
-		return game;
-	};
+	if (name.length > 30) {
+		throw new AppError(400, "Name must be less than 30 characters");
+	}
 
-	return {
-		execute,
+	const game: Game = {
+		id: crypto.randomUUID(),
+		status: GameStatus.PENDING_PLAYER,
+		players: [{ name }],
 	};
+	gameRepository.add(game);
+	return game;
 };

@@ -1,6 +1,7 @@
-import { ProjectDependencies } from "../interface/contracts/projectDependencies";
-import { databaseService } from "../frameworks/database/memory/memoryDatabaseService";
+import { databaseService } from "../frameworks/database/databaseService";
+
+import type { ProjectDependencies } from "../interface/contracts/projectDependencies";
 
 export const projectDependencies: ProjectDependencies = {
-	databaseService: databaseService,
+	databaseService,
 };

@@ -1,4 +1,4 @@
-import { GameRepository } from "./gameRepository";
+import type { GameRepository } from "./gameRepository";
 
 export type DatabaseService = {
 	gameRepository: GameRepository;

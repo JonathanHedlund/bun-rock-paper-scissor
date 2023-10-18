@@ -1,11 +1,11 @@
-import { Game } from "../../entities/gameEntity";
+import type { Game } from "../../entities/gameEntity";
 
 export type GameRepository = {
-	findAll: () => Promise<Game[]> | Game[];
-	findById: (id: string) => Promise<Game | null> | Game | null;
-	add: (game: Game) => Promise<void> | void;
-	updateById: (id: string, game: Game) => Promise<void> | void;
-	remove: (id: string) => Promise<void> | void;
+	findAll: () => Game[];
+	findById: (id: string) => Game | null;
+	add: (game: Game) => void;
+	updateById: (id: string, game: Game) => void;
+	remove: (id: string) => void;
 };
 
 export default function gameRespository(repository: GameRepository) {

@@ -1,4 +1,4 @@
-import { DatabaseService } from "../../application/contracts/databaseService";
+import type { DatabaseService } from "../../application/contracts/databaseService";
 
 export type ProjectDependencies = {
 	databaseService: DatabaseService;
