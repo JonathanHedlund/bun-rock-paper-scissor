@@ -1,7 +1,7 @@
 import { GameStatus } from "../../../entities/gameEntity";
 
 import type { Game } from "../../../entities/gameEntity";
-import { AppError } from "../../../config/error/appError";
+import { AppError } from "../../../shared/appError";
 import type { GameRepository } from "../../contracts/gameRepository";
 
 export const createGame = (gameRepository: GameRepository, name: string) => {

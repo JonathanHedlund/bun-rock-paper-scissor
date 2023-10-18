@@ -1,4 +1,4 @@
-import { AppError } from "./appError";
+import { AppError } from "../../shared/appError";
 
 import type { Request, Response, NextFunction } from "express";
 

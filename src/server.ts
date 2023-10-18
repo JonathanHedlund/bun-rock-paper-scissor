@@ -4,8 +4,8 @@ import { projectDependencies } from "./config/projectDependencies";
 import { apiRouter } from "./frameworks/routes";
 
 import type { Request, Response, NextFunction } from "express";
-import { AppError } from "./config/error/appError";
-import { globalErrorHandler } from "./config/error/globalErrorHandler";
+import { AppError } from "./shared/appError";
+import { globalErrorHandler } from "./frameworks/error/globalErrorHandler";
 
 const PORT = Bun.env.PORT || 3000;
 const API_VERSION = Bun.env.API_VERSION || "v1";
