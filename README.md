@@ -43,9 +43,9 @@ Here are all of the API calls used to play the game and a more indepth descripti
 ```
 POST /api/v1/games
 POST /api/v1/games --> Creates a new game
-POST /api/v1/games/{id}/join --> Joins an existing game
-POST /api/v1/games/{id}/move --> Make your move
-GET /api/v1/games/{id} --> Get results of your game
+POST /api/v1/games/:id/join --> Joins an existing game
+POST /api/v1/games/:id/move --> Make your move
+GET /api/v1/games/:id --> Get results of your game
 ```
 
 ### POST /api/games
