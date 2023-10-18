@@ -19,9 +19,5 @@
 			"bun-types" // add Bun global
 		],
 		"verbatimModuleSyntax": true
-	},
-	"ts-node": {
-		// Tell ts-node CLI to install the --loader automatically
-		"esm": true
 	}
 }
