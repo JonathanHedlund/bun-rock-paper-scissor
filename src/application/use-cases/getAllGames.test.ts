@@ -14,12 +14,12 @@ describe("getAllGames", () => {
 		const game1: Game = {
 			id: "1",
 			status: GameStatus.PENDING_PLAYER,
-			players: [{ name: "John" }],
+			players: [{ name: "Jonathan" }],
 		};
 		const game2: Game = {
 			id: "2",
 			status: GameStatus.PENDING_PLAYER,
-			players: [{ name: "John" }],
+			players: [{ name: "Ted" }],
 		};
 		gameRepository.add(game1);
 		gameRepository.add(game2);
