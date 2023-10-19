@@ -5,7 +5,7 @@ import { apiRouter } from "./frameworks/routes";
 
 import type { Request, Response, NextFunction } from "express";
 import { AppError } from "./shared/appError";
-import { globalErrorHandler } from "./frameworks/error/globalErrorHandler";
+import { globalErrorHandler } from "./config/globalErrorHandler";
 
 const API_VERSION = Bun.env.API_VERSION || "v1";
 
