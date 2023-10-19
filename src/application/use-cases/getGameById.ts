@@ -9,12 +9,23 @@ export const getGameById = (gameRepository: GameRepository, id: string) => {
 	if (!game) {
 		throw new AppError(HttpStatusCode.NOT_FOUND, "Game not found");
 	}
+
+	const players = game.players.map((player) => {
+		return {
+			name: player.name,
+			move: player.move,
+		};
+	});
+
 	if (game.status !== GameStatus.FINISHED) {
-		game.players.map((player) => {
+		players.map((player) => {
 			if (player.move) {
 				player.move = "HIDDEN";
 			}
 		});
 	}
-	return game;
+	return {
+		...game,
+		players,
+	};
 };

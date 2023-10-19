@@ -10,6 +10,9 @@ export const router = (dependencies: ProjectDependencies) => {
 	const controller = gameController(dependencies);
 
 	router.route("/").get(controller.getAllGames).post(controller.createGame);
+	router.route("/:id/join").put(controller.joinGameById);
+	router.route("/:id/move").put(controller.makeMoveInGameById);
+	router.route("/:id").get(controller.getGameById);
 
 	return router;
 };

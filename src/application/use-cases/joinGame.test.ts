@@ -71,7 +71,6 @@ describe("joinGame", () => {
 		makeMove(gameRepository, makeMoveInput1);
 		makeMove(gameRepository, makeMoveInput2);
 
-		console.log("hejsan");
 		expect(() => joinGame(gameRepository, input)).toThrow(
 			new AppError(HttpStatusCode.FORBIDDEN, "Unable to join game")
 		);

@@ -19,6 +19,7 @@ export type Game = {
 	id: string;
 	status: GameStatus;
 	players: Player[];
+	winner?: Player;
 };
 
 export const canJoinGame = (game: Game, playerName: string) => {
