@@ -41,10 +41,9 @@ Once you have the server up and running on your localhost you can go to this ste
 Here are all of the API calls used to play the game and a more indepth description of each.
 
 ```
-POST /api/v1/games
 POST /api/v1/games --> Creates a new game
-POST /api/v1/games/:id/join --> Joins an existing game
-POST /api/v1/games/:id/move --> Make your move
+PUT /api/v1/games/:id/join --> Joins an existing game
+PUT /api/v1/games/:id/move --> Make your move
 GET /api/v1/games/:id --> Get results of your game
 ```
 
@@ -59,7 +58,7 @@ A game ID is returned that you can send to your opponent
 }
 ```
 
-### POST /api/games/:id/join
+### PUT /api/games/:id/join
 
 Joins a game with the game ID you recieved from your opponent.
 Input the player name in the request-body. Returns if you are able to join the game or not.
@@ -70,7 +69,7 @@ Input the player name in the request-body. Returns if you are able to join the g
 }
 ```
 
-### POST /api/games/:id/move
+### PUT /api/games/:id/move
 
 Make your move. Input your player name and the move you want to make. As well as having the game ID as a parameter.
 Only "Rock", "Paper" and "Scissors" are valid moves in this game.
