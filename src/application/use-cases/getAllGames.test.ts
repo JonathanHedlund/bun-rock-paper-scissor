@@ -1,8 +1,11 @@
 import { afterEach, describe, expect, test } from "bun:test";
 
 import { memoryDatabaseService } from "../../frameworks/database/memory/memoryDatabaseService";
+
 import { getAllGames } from "./getAllGames";
-import { GameStatus, type Game } from "../../entities/gameEntity";
+import { GameStatus } from "../../entities/gameEntity";
+
+import type { Game } from "../../entities/gameEntity";
 
 describe("getAllGames", () => {
 	let { gameRepository } = memoryDatabaseService();

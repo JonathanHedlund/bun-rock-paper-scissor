@@ -18,6 +18,8 @@
 		"types": [
 			"bun-types" // add Bun global
 		],
-		"verbatimModuleSyntax": true
+		"verbatimModuleSyntax": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true
 	}
 }

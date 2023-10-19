@@ -1,6 +1,5 @@
 import { gameUseCases } from "../../application/use-cases";
 
-import { AppError } from "../../shared/appError";
 import { HttpStatusCode } from "../../shared/httpStatusCode";
 
 import type { Request, Response, NextFunction } from "express";
@@ -11,7 +10,7 @@ import type { MakeMoveInput } from "../../application/use-cases/makeMove";
 export const gameController = (dependencies: ProjectDependencies) => {
 	const { gameRepository } = dependencies.databaseService;
 
-	const getAllGames = (req: Request, res: Response, next: NextFunction) => {
+	const getAllGames = (_req: Request, res: Response, _next: NextFunction) => {
 		const games = gameRepository.findAll();
 		return res.status(HttpStatusCode.OK).json(games);
 	};
