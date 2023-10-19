@@ -17,7 +17,7 @@ projectDependencies.databaseService.initDatabase();
 
 app.use(`/api/${API_VERSION}`, apiRouter(projectDependencies));
 
-app.all("*", (req: Request, res: Response, next: NextFunction) => {
+app.all("*", (req: Request, _res: Response, next: NextFunction) => {
 	next(new AppError(404, `Can't find ${req.originalUrl} on this server`));
 });
 
