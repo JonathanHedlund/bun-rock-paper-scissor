@@ -1,7 +1,7 @@
 export enum GameStatus {
-	PENDING_PLAYER,
-	IN_PROGRESS,
-	FINISHED,
+	PENDING_PLAYER = "pending",
+	IN_PROGRESS = "in-progress",
+	FINISHED = "finished",
 }
 
 export enum Move {
