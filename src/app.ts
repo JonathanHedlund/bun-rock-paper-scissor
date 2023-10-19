@@ -13,6 +13,8 @@ const app = express();
 
 app.use(express.json());
 
+projectDependencies.databaseService.initDatabase();
+
 app.use(`/api/${API_VERSION}`, apiRouter(projectDependencies));
 
 app.all("*", (req: Request, res: Response, next: NextFunction) => {

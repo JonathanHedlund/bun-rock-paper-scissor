@@ -1,4 +1,4 @@
-import { gameUseCases } from "../../application/use-cases/game";
+import { gameUseCases } from "../../application/use-cases";
 
 import { AppError } from "../../shared/appError";
 import { HttpStatusCode } from "../../shared/httpStatusCode";
