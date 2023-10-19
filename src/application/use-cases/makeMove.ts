@@ -1,6 +1,7 @@
 import {
 	GameStatus,
 	Move,
+	calculateWinner,
 	canMakeMove,
 	determineGameStatus,
 	isValidMove,
@@ -41,6 +42,13 @@ export const makeMove = (
 
 	const currentGameStatus = determineGameStatus(game);
 	game.status = currentGameStatus;
+
+	if (game.status === GameStatus.FINISHED) {
+		const winner = calculateWinner(game.players);
+		if (winner) {
+			game.winner = winner;
+		}
+	}
 
 	gameRepository.updateById(input.id, game);
 };

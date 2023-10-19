@@ -94,4 +94,29 @@ describe("makeMove", () => {
 			new AppError(HttpStatusCode.FORBIDDEN, "You cannot make a move")
 		);
 	});
+	test("should add the winner to the game if game is finished", () => {
+		const game = createGame(gameRepository, "Jonathan");
+
+		const joinGameInput: JoinGameInput = {
+			id: game.id,
+			name: "Ted",
+		};
+		joinGame(gameRepository, joinGameInput);
+
+		const makeMoveInput1: MakeMoveInput = {
+			id: game.id,
+			name: "Jonathan",
+			move: "rock",
+		};
+		const makeMoveInput2: MakeMoveInput = {
+			id: game.id,
+			name: "Ted",
+			move: "paper",
+		};
+		makeMove(gameRepository, makeMoveInput1);
+		makeMove(gameRepository, makeMoveInput2);
+
+		const updatedGame = getGameById(gameRepository, game.id);
+		expect(updatedGame.winner).toEqual({ name: "Ted", move: "paper" });
+	});
 });
