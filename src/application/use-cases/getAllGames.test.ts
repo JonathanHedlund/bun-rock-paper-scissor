@@ -23,6 +23,7 @@ describe("getAllGames", () => {
 		};
 		gameRepository.add(game1);
 		gameRepository.add(game2);
+
 		const games = getAllGames(gameRepository);
 		expect(games).toEqual([game1, game2]);
 	});

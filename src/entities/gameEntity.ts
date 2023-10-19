@@ -12,14 +12,13 @@ export enum Move {
 
 export type Player = {
 	name: string;
-	move?: Move;
+	move?: Move | "HIDDEN";
 };
 
 export type Game = {
 	id: string;
 	status: GameStatus;
 	players: Player[];
-	winners?: Player[];
 };
 
 export const canJoinGame = (game: Game, playerName: string) => {
