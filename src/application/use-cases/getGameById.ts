@@ -1,8 +1,10 @@
 import { GameStatus } from "../../entities/gameEntity";
+
 import { AppError } from "../../shared/appError";
 import { HttpStatusCode } from "../../shared/httpStatusCode";
 
 import type { GameRepository } from "../contracts/gameRepository";
+import { hideMoves } from "../utils/presentation";
 
 export const getGameById = (gameRepository: GameRepository, id: string) => {
 	if (!id) {
@@ -14,20 +16,11 @@ export const getGameById = (gameRepository: GameRepository, id: string) => {
 		throw new AppError(HttpStatusCode.NOT_FOUND, "Game not found");
 	}
 
-	const players = game.players.map((player) => {
-		return {
-			name: player.name,
-			move: player.move,
-		};
-	});
+	const players =
+		game.status === GameStatus.FINISHED
+			? game.players
+			: hideMoves(game.players);
 
-	if (game.status !== GameStatus.FINISHED) {
-		players.map((player) => {
-			if (player.move) {
-				player.move = "HIDDEN";
-			}
-		});
-	}
 	return {
 		...game,
 		players,
