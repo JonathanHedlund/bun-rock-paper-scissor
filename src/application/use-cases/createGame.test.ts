@@ -1,10 +1,10 @@
-import { afterEach, beforeEach, describe, expect, mock, test } from "bun:test";
+import { afterEach, describe, expect, test } from "bun:test";
 
-import { memoryDatabaseService } from "../../../frameworks/database/memory/memoryDatabaseService";
+import { memoryDatabaseService } from "../../frameworks/database/memory/memoryDatabaseService";
 import { createGame } from "./createGame";
-import { GameStatus, type Game } from "../../../entities/gameEntity";
-import { AppError } from "../../../shared/appError";
-import { HttpStatusCode } from "../../../shared/httpStatusCode";
+import { GameStatus, type Game } from "../../entities/gameEntity";
+import { AppError } from "../../shared/appError";
+import { HttpStatusCode } from "../../shared/httpStatusCode";
 
 describe("createGame using in memory database", () => {
 	let { gameRepository } = memoryDatabaseService();
