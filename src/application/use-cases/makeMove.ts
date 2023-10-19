@@ -1,3 +1,4 @@
+import Joi from "joi";
 import {
 	GameStatus,
 	Move,
@@ -12,6 +13,12 @@ import { HttpStatusCode } from "../../shared/httpStatusCode";
 
 import type { GameRepository } from "../contracts/gameRepository";
 
+export const makeMoveSchema = Joi.object({
+	id: Joi.string().required(),
+	name: Joi.string().max(30).min(30).required(),
+	move: Joi.string().required(),
+});
+
 export type MakeMoveInput = {
 	id: string;
 	name: string;
@@ -22,13 +29,8 @@ export const makeMove = (
 	gameRepository: GameRepository,
 	input: MakeMoveInput
 ) => {
-	if (!input.name || !input.move) {
-		throw new AppError(HttpStatusCode.BAD_REQUEST, "Invalid input");
-	}
-	if (!input.id) {
-		throw new AppError(HttpStatusCode.BAD_REQUEST, "Game id is required");
-	}
 	const game = gameRepository.findById(input.id);
+
 	if (!game) {
 		throw new AppError(HttpStatusCode.NOT_FOUND, "Game not found");
 	}

@@ -2,10 +2,7 @@ import { afterEach, describe, expect, test } from "bun:test";
 
 import { memoryDatabaseService } from "../../frameworks/database/memory/memoryDatabaseService";
 
-import { createGame } from "./createGame";
-import { getGameById } from "./getGameById";
-import { makeMove } from "./makeMove";
-import { joinGame } from "./joinGame";
+import { gameUseCases } from ".";
 
 import { AppError } from "../../shared/appError";
 import { HttpStatusCode } from "../../shared/httpStatusCode";
@@ -14,6 +11,8 @@ import type { JoinGameInput } from "./joinGame";
 import type { MakeMoveInput } from "./makeMove";
 
 describe("makeMove", () => {
+	const { joinGame, createGame, makeMove, getGameById } = gameUseCases;
+
 	let { gameRepository } = memoryDatabaseService();
 
 	afterEach(() => {

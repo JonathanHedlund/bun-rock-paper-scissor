@@ -1,3 +1,4 @@
+import Joi from "joi";
 import { GameStatus } from "../../entities/gameEntity";
 
 import { AppError } from "../../shared/appError";
@@ -6,12 +7,13 @@ import { HttpStatusCode } from "../../shared/httpStatusCode";
 import type { GameRepository } from "../contracts/gameRepository";
 import { hideMoves } from "../utils/presentation";
 
-export const getGameById = (gameRepository: GameRepository, id: string) => {
-	if (!id) {
-		throw new AppError(HttpStatusCode.BAD_REQUEST, "Game id is required");
-	}
+export const getGameByIdSchema = Joi.object({
+	id: Joi.string().required(),
+});
 
+export const getGameById = (gameRepository: GameRepository, id: string) => {
 	const game = gameRepository.findById(id);
+
 	if (!game) {
 		throw new AppError(HttpStatusCode.NOT_FOUND, "Game not found");
 	}

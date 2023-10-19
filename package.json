@@ -12,7 +12,8 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "joi": "^17.11.0"
   },
   "scripts": {
     "start": "bun --hot ./src/server.ts"

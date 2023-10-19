@@ -1,22 +1,16 @@
-import { GameStatus } from "../../entities/gameEntity";
+import Joi from "joi";
 
-import { AppError } from "../../shared/appError";
-import { HttpStatusCode } from "../../shared/httpStatusCode";
+import { GameStatus } from "../../entities/gameEntity";
 
 import type { Game } from "../../entities/gameEntity";
 import type { GameRepository } from "../contracts/gameRepository";
 
-export const createGame = (gameRepository: GameRepository, name: string) => {
-	if (!name) {
-		throw new AppError(HttpStatusCode.BAD_REQUEST, "Name is required");
-	}
+export const createGameSchema = Joi.object({
+	name: Joi.string().max(30).min(30).required(),
+});
 
-	if (name.length > 30) {
-		throw new AppError(
-			HttpStatusCode.BAD_REQUEST,
-			"Name must be less than 30 characters"
-		);
-	}
+export const createGame = (gameRepository: GameRepository, name: string) => {
+	createGameSchema.validate({ name });
 
 	const game: Game = {
 		id: crypto.randomUUID(),

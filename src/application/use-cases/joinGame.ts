@@ -1,3 +1,5 @@
+import Joi from "joi";
+
 import { canJoinGame, determineGameStatus } from "../../entities/gameEntity";
 import { AppError } from "../../shared/appError";
 import { HttpStatusCode } from "../../shared/httpStatusCode";
@@ -9,17 +11,17 @@ export type JoinGameInput = {
 	name: string;
 };
 
+export const joinGameSchema = Joi.object({
+	id: Joi.string().required(),
+	name: Joi.string().max(30).min(30).required(),
+});
+
 export const joinGame = (
 	gameRepository: GameRepository,
 	input: JoinGameInput
 ) => {
-	if (!input.name) {
-		throw new AppError(HttpStatusCode.BAD_REQUEST, "Name is required");
-	}
-	if (!input.id) {
-		throw new AppError(HttpStatusCode.BAD_REQUEST, "Game id is required");
-	}
 	const game = gameRepository.findById(input.id);
+
 	if (!game) {
 		throw new AppError(HttpStatusCode.NOT_FOUND, "Game not found");
 	}
