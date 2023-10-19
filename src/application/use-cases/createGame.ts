@@ -7,6 +7,10 @@ import type { Game } from "../../entities/gameEntity";
 import type { GameRepository } from "../contracts/gameRepository";
 
 export const createGame = (gameRepository: GameRepository, name: string) => {
+	if (!name) {
+		throw new AppError(HttpStatusCode.BAD_REQUEST, "Name is required");
+	}
+
 	if (name.length > 30) {
 		throw new AppError(
 			HttpStatusCode.BAD_REQUEST,

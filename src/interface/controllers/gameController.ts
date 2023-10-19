@@ -17,9 +17,6 @@ export const gameController = (dependencies: ProjectDependencies) => {
 	};
 
 	const createGame = (req: Request, res: Response, next: NextFunction) => {
-		if (!req.body.name) {
-			return next(new AppError(HttpStatusCode.BAD_REQUEST, "Name is required"));
-		}
 		try {
 			const game = gameUseCases.createGame(gameRepository, req.body.name);
 			res.status(HttpStatusCode.CREATED).json(game);
@@ -29,14 +26,6 @@ export const gameController = (dependencies: ProjectDependencies) => {
 	};
 
 	const joinGameById = (req: Request, res: Response, next: NextFunction) => {
-		if (!req.body.name) {
-			return next(new AppError(HttpStatusCode.BAD_REQUEST, "Name is required"));
-		}
-		if (!req.params.id) {
-			return next(
-				new AppError(HttpStatusCode.BAD_REQUEST, "Game id is required")
-			);
-		}
 		try {
 			const input: JoinGameInput = {
 				id: req.params.id,
@@ -54,14 +43,6 @@ export const gameController = (dependencies: ProjectDependencies) => {
 		res: Response,
 		next: NextFunction
 	) => {
-		if (!req.body.name || !req.body.move) {
-			return next(new AppError(HttpStatusCode.BAD_REQUEST, "Invalid input"));
-		}
-		if (!req.params.id) {
-			return next(
-				new AppError(HttpStatusCode.BAD_REQUEST, "Game id is required")
-			);
-		}
 		try {
 			const input: MakeMoveInput = {
 				id: req.params.id,
@@ -76,12 +57,6 @@ export const gameController = (dependencies: ProjectDependencies) => {
 	};
 
 	const getGameById = (req: Request, res: Response, next: NextFunction) => {
-		if (!req.params.id) {
-			return next(
-				new AppError(HttpStatusCode.BAD_REQUEST, "Game id is required")
-			);
-		}
-
 		try {
 			const game = gameUseCases.getGameById(gameRepository, req.params.id);
 			res.status(HttpStatusCode.OK).json(game);

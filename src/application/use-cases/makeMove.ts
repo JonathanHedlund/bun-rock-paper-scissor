@@ -21,6 +21,12 @@ export const makeMove = (
 	gameRepository: GameRepository,
 	input: MakeMoveInput
 ) => {
+	if (!input.name || !input.move) {
+		throw new AppError(HttpStatusCode.BAD_REQUEST, "Invalid input");
+	}
+	if (!input.id) {
+		throw new AppError(HttpStatusCode.BAD_REQUEST, "Game id is required");
+	}
 	const game = gameRepository.findById(input.id);
 	if (!game) {
 		throw new AppError(HttpStatusCode.NOT_FOUND, "Game not found");

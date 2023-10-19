@@ -20,6 +20,12 @@ export const joinGame = (
 	gameRepository: GameRepository,
 	input: JoinGameInput
 ) => {
+	if (!input.name) {
+		throw new AppError(HttpStatusCode.BAD_REQUEST, "Name is required");
+	}
+	if (!input.id) {
+		throw new AppError(HttpStatusCode.BAD_REQUEST, "Game id is required");
+	}
 	const game = gameRepository.findById(input.id);
 	if (!game) {
 		throw new AppError(HttpStatusCode.NOT_FOUND, "Game not found");
