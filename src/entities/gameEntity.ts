@@ -30,11 +30,8 @@ export const isGameFull = (game: Game) => game.players.length === 2;
 export const isValidMove = (move: string) =>
 	Object.values(Move).includes(move as Move);
 
-export const hasAlreadyMadeMove = (game: Game, playerName: string) => {
-	return game.players.some(
-		(player) => player.name === playerName && "move" in player
-	);
-};
+export const hasAlreadyMadeMove = (game: Game, playerName: string) =>
+	game.players.some((player) => player.name === playerName && "move" in player);
 
 export const calculateWinner = (players: Player[]) => {
 	const [player1, player2] = players;
