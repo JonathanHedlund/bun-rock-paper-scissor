@@ -8,8 +8,8 @@ The rules are simple, one game decides the winner.
 1. Player 1 sends a request to create a new game and gets back a game ID from the server.
 2. Player 1 sends the game ID to player 2 via any communication channel. (eg mail, slack or fax)
 3. Player 2 joins the game using the game ID.
-4. Player 1 makes his move (Stone).
-5. Player 2 makes his move (Scissors).
+4. Player 1 makes his move (rock).
+5. Player 2 makes his move (scissors).
 6. Player 1 checks the state of the game and discovers that he has won.
 7. Player 2 checks the state of the game and discovers that he lost.
 
@@ -72,12 +72,12 @@ Input the player name in the request-body. Returns if you are able to join the g
 ### PUT /api/games/:id/move
 
 Make your move. Input your player name and the move you want to make. As well as having the game ID as a parameter.
-Only "Rock", "Paper" and "Scissors" are valid moves in this game.
+Only "rock", "paper" and "scissors" are valid moves in this game.
 
 ```json
 {
 	"name": "Ted",
-	"move": "Scissors"
+	"move": "scissors"
 }
 ```
 
