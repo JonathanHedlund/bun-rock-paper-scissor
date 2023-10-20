@@ -29,18 +29,18 @@ describe("Game", () => {
 			const winner = calculateWinner(game.players);
 			expect(winner).toBe(game.players[1]);
 		});
-		test("Rock - Scissor, Rock wins", () => {
+		test("Rock - Scissors, Rock wins", () => {
 			game.players = [
 				{ name: "player1", move: Move.ROCK },
-				{ name: "player2", move: Move.SCISSOR },
+				{ name: "player2", move: Move.SCISSORS },
 			];
 			const winner = calculateWinner(game.players);
 			expect(winner).toBe(game.players[0]);
 		});
-		test("Paper - Scissor, Scissor wins", () => {
+		test("Paper - Scissors, Scissors wins", () => {
 			game.players = [
 				{ name: "player1", move: Move.PAPER },
-				{ name: "player2", move: Move.SCISSOR },
+				{ name: "player2", move: Move.SCISSORS },
 			];
 			const winner = calculateWinner(game.players);
 			expect(winner).toBe(game.players[1]);
@@ -167,7 +167,7 @@ describe("Game", () => {
 			expect(isValidMove(move)).toBe(true);
 		});
 		test("Should allow player to play scissor", () => {
-			const move = Move.SCISSOR;
+			const move = Move.SCISSORS;
 			expect(isValidMove(move)).toBe(true);
 		});
 		test("Should not allow player to play anything else", () => {

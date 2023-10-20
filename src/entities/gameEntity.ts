@@ -7,7 +7,7 @@ export enum GameStatus {
 export enum Move {
 	ROCK = "rock",
 	PAPER = "paper",
-	SCISSOR = "scissor",
+	SCISSORS = "scissors",
 }
 
 export type Player = {
@@ -57,7 +57,7 @@ export const calculateWinner = (players: Player[]) => {
 		return null;
 	}
 
-	if (player1.move === Move.ROCK && player2.move === Move.SCISSOR) {
+	if (player1.move === Move.ROCK && player2.move === Move.SCISSORS) {
 		return player1;
 	}
 
@@ -65,7 +65,7 @@ export const calculateWinner = (players: Player[]) => {
 		return player1;
 	}
 
-	if (player1.move === Move.SCISSOR && player2.move === Move.PAPER) {
+	if (player1.move === Move.SCISSORS && player2.move === Move.PAPER) {
 		return player1;
 	}
 
