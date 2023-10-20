@@ -8,9 +8,7 @@ import type { NextFunction, Request, Response } from "express";
 
 type SchemaInput = Joi.ObjectSchema | Joi.ObjectSchema[];
 
-export const joinJoiSchemas = (
-	schemas: Joi.ObjectSchema[]
-): Joi.ObjectSchema => {
+const joinJoiSchemas = (schemas: Joi.ObjectSchema[]): Joi.ObjectSchema => {
 	let mergedSchema = Joi.object();
 	schemas.forEach((schema) => {
 		mergedSchema = mergedSchema.concat(schema);
