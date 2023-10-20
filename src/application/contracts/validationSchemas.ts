@@ -1,11 +1,20 @@
 import { createGameSchema } from "../use-cases/createGame";
-import { getGameByIdSchema } from "../use-cases/getGameById";
-import { joinGameSchema } from "../use-cases/joinGame";
-import { makeMoveSchema } from "../use-cases/makeMove";
+
+import {
+	joinGameBodySchema,
+	joinGameParamsSchema,
+} from "../use-cases/joinGame";
+import {
+	makeMoveBodySchema,
+	makeMoveParamsSchema,
+} from "../use-cases/makeMove";
+import { getGameByIdParamsSchema } from "../use-cases/getGameById";
 
 export const validationSchemas = {
 	createGameSchema,
-	getGameByIdSchema,
-	joinGameSchema,
-	makeMoveSchema,
+	joinGameBodySchema,
+	joinGameParamsSchema,
+	makeMoveBodySchema,
+	makeMoveParamsSchema,
+	getGameByIdParamsSchema,
 };

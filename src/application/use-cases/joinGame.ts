@@ -11,9 +11,12 @@ export type JoinGameInput = {
 	name: string;
 };
 
-export const joinGameSchema = Joi.object({
+export const joinGameBodySchema = Joi.object({
+	name: Joi.string().max(30).min(3).required(),
+});
+
+export const joinGameParamsSchema = Joi.object({
 	id: Joi.string().required(),
-	name: Joi.string().max(30).min(30).required(),
 });
 
 export const joinGame = (

@@ -15,23 +15,31 @@ export const router = (dependencies: ProjectDependencies) => {
 	router
 		.route("/")
 		.get(controller.getAllGames)
-		.post(validator(validationSchemas.createGameSchema), controller.createGame);
+		.post(
+			validator.body(validationSchemas.createGameSchema),
+			controller.createGame
+		);
 
 	router
 		.route("/:id/join")
-		.put(validator(validationSchemas.joinGameSchema), controller.joinGameById);
+		.put(
+			validator.body(validationSchemas.joinGameBodySchema),
+			validator.params(validationSchemas.joinGameParamsSchema),
+			controller.joinGameById
+		);
 
 	router
 		.route("/:id/move")
 		.put(
-			validator(validationSchemas.makeMoveSchema),
+			validator.body(validationSchemas.makeMoveBodySchema),
+			validator.params(validationSchemas.makeMoveParamsSchema),
 			controller.makeMoveInGameById
 		);
 
 	router
 		.route("/:id")
 		.get(
-			validator(validationSchemas.getGameByIdSchema),
+			validator.params(validationSchemas.getGameByIdParamsSchema),
 			controller.getGameById
 		);
 

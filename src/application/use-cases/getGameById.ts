@@ -7,7 +7,7 @@ import { HttpStatusCode } from "../../shared/httpStatusCode";
 import type { GameRepository } from "../contracts/gameRepository";
 import { hideMoves } from "../utils/presentation";
 
-export const getGameByIdSchema = Joi.object({
+export const getGameByIdParamsSchema = Joi.object({
 	id: Joi.string().required(),
 });
 

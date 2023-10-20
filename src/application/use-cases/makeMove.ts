@@ -13,10 +13,13 @@ import { HttpStatusCode } from "../../shared/httpStatusCode";
 
 import type { GameRepository } from "../contracts/gameRepository";
 
-export const makeMoveSchema = Joi.object({
-	id: Joi.string().required(),
-	name: Joi.string().max(30).min(30).required(),
+export const makeMoveBodySchema = Joi.object({
+	name: Joi.string().max(30).min(3).required(),
 	move: Joi.string().required(),
+});
+
+export const makeMoveParamsSchema = Joi.object({
+	id: Joi.string().required(),
 });
 
 export type MakeMoveInput = {
