@@ -10,8 +10,6 @@ export const createGameSchema = Joi.object({
 });
 
 export const createGame = (gameRepository: GameRepository, name: string) => {
-	createGameSchema.validate({ name });
-
 	const game: Game = {
 		id: crypto.randomUUID(),
 		status: GameStatus.PENDING_PLAYER,
