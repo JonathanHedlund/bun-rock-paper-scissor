@@ -1,6 +1,10 @@
 import Joi from "joi";
 
-import { canJoinGame, determineGameStatus } from "../../entities/gameEntity";
+import {
+	GameStatus,
+	determineGameStatus,
+	isPlayerInGame,
+} from "../../entities/gameEntity";
 import { AppError } from "../../shared/appError";
 import { HttpStatusCode } from "../../shared/httpStatusCode";
 
@@ -28,9 +32,15 @@ export const joinGame = (
 	if (!game) {
 		throw new AppError(HttpStatusCode.NOT_FOUND, "Game not found");
 	}
-	if (!canJoinGame(game, input.name)) {
+
+	if (isPlayerInGame(game, input.name)) {
+		throw new AppError(HttpStatusCode.FORBIDDEN, "You are already in the game");
+	}
+
+	if (game.status !== GameStatus.PENDING_PLAYER) {
 		throw new AppError(HttpStatusCode.FORBIDDEN, "Unable to join game");
 	}
+
 	game.players.push({ name: input.name });
 
 	const currentGameStatus = determineGameStatus(game);

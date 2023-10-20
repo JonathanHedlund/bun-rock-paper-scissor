@@ -35,7 +35,7 @@ describe("joinGame", () => {
 			name: "Ted",
 		};
 		expect(() => joinGame(gameRepository, input)).toThrow(
-			new AppError(HttpStatusCode.FORBIDDEN, "Unable to join game")
+			new AppError(HttpStatusCode.FORBIDDEN, "You are already in the game")
 		);
 	});
 	test("should not be able to join game if game is full", () => {
@@ -56,11 +56,11 @@ describe("joinGame", () => {
 	test("should not be able to join if game is finished", () => {
 		const game = createGame(gameRepository, "Ted");
 
-		const input: JoinGameInput = {
+		const input1: JoinGameInput = {
 			id: game.id,
 			name: "Jonathan",
 		};
-		joinGame(gameRepository, input);
+		joinGame(gameRepository, input1);
 
 		const makeMoveInput1: MakeMoveInput = {
 			id: game.id,
@@ -75,7 +75,12 @@ describe("joinGame", () => {
 		makeMove(gameRepository, makeMoveInput1);
 		makeMove(gameRepository, makeMoveInput2);
 
-		expect(() => joinGame(gameRepository, input)).toThrow(
+		const input2: JoinGameInput = {
+			id: game.id,
+			name: "John",
+		};
+
+		expect(() => joinGame(gameRepository, input2)).toThrow(
 			new AppError(HttpStatusCode.FORBIDDEN, "Unable to join game")
 		);
 	});

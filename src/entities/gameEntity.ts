@@ -22,33 +22,18 @@ export type Game = {
 	winner?: Player;
 };
 
-export const canJoinGame = (game: Game, playerName: string) => {
-	if (
-		game.players.some((p) => p.name === playerName) ||
-		game.players.length === 2
-	) {
-		return false;
-	}
+export const isPlayerInGame = (game: Game, playerName: string) =>
+	game.players.some((player) => player.name === playerName);
 
-	return true;
-};
+export const isGameFull = (game: Game) => game.players.length === 2;
 
-export const isValidMove = (move: string) => {
-	return Object.values(Move).includes(move as Move);
-};
+export const isValidMove = (move: string) =>
+	Object.values(Move).includes(move as Move);
 
-export const canMakeMove = (game: Game, playerName: string) => {
-	if (
-		game.players.length === 1 ||
-		!game.players.some((player) => player.name === playerName) ||
-		game.players.some(
-			(player) => player.name === playerName && "move" in player
-		)
-	) {
-		return false;
-	}
-
-	return true;
+export const hasAlreadyMadeMove = (game: Game, playerName: string) => {
+	return game.players.some(
+		(player) => player.name === playerName && "move" in player
+	);
 };
 
 export const calculateWinner = (players: Player[]) => {

@@ -3,10 +3,11 @@ import {
 	GameStatus,
 	Move,
 	calculateWinner,
-	canJoinGame,
-	canMakeMove,
 	determineGameStatus,
 	isValidMove,
+	isGameFull,
+	isPlayerInGame,
+	hasAlreadyMadeMove,
 } from "./gameEntity";
 
 import type { Game } from "./gameEntity";
@@ -55,7 +56,7 @@ describe("Game", () => {
 		});
 	});
 
-	describe("canJoinGame", () => {
+	describe("isGameFull", () => {
 		const game: Game = {
 			id: "123",
 			status: GameStatus.PENDING_PLAYER,
@@ -66,18 +67,47 @@ describe("Game", () => {
 			game.players = [{ name: "player1" }];
 		});
 
-		test("should be able to join game consisting of 1 player", () => {
-			const playerName = "player2";
-			expect(canJoinGame(game, playerName)).toBe(true);
+		test("should return false if there is only 1 player", () => {
+			expect(isGameFull(game)).toBe(false);
 		});
-		test("should not be able to join game consisting of 2 players", () => {
+		test("should return true if there are 2 players", () => {
 			game.players.push({ name: "player2" });
-			const playerName = "player3";
-			expect(canJoinGame(game, playerName)).toBe(false);
+			expect(isGameFull(game)).toBe(true);
 		});
-		test("should not be able to join a game if you are already in it", () => {
+	});
+
+	describe("isPlayerInGame", () => {
+		const game: Game = {
+			id: "123",
+			status: GameStatus.PENDING_PLAYER,
+			players: [{ name: "player1" }],
+		};
+
+		test("should return true if player is in game", () => {
 			const playerName = "player1";
-			expect(canJoinGame(game, playerName)).toBe(false);
+			expect(isPlayerInGame(game, playerName)).toBe(true);
+		});
+		test("should return false if player is not in game", () => {
+			const playerName = "player2";
+			expect(isPlayerInGame(game, playerName)).toBe(false);
+		});
+	});
+
+	describe("hasAlreadyMadeMove", () => {
+		const game: Game = {
+			id: "123",
+			status: GameStatus.PENDING_PLAYER,
+			players: [{ name: "player1" }],
+		};
+
+		test("should return false if player has not made a move", () => {
+			const playerName = "player1";
+			expect(hasAlreadyMadeMove(game, playerName)).toBe(false);
+		});
+		test("should return true if player has made a move", () => {
+			game.players[0].move = Move.ROCK;
+			const playerName = "player1";
+			expect(hasAlreadyMadeMove(game, playerName)).toBe(true);
 		});
 	});
 
@@ -116,44 +146,6 @@ describe("Game", () => {
 				],
 			};
 			expect(determineGameStatus(game)).toBe(GameStatus.FINISHED);
-		});
-	});
-
-	describe("canMakeMove", () => {
-		const game: Game = {
-			id: "123",
-			status: GameStatus.IN_PROGRESS,
-			players: [],
-		};
-
-		beforeEach(() => {
-			game.players = [{ name: "player1" }];
-		});
-
-		test("Should not be able to make move if only 1 player is in the game", () => {
-			const playerName = "player1";
-			expect(canMakeMove(game, playerName)).toBe(false);
-		});
-		test("Should not be able to make move if player is not in game", () => {
-			game.players = [{ name: "player1" }, { name: "player2" }];
-			const playerName = "player3";
-			expect(canMakeMove(game, playerName)).toBe(false);
-		});
-		test("Should not be able to make move if player has already made a move", () => {
-			game.players = [
-				{ name: "player1", move: Move.ROCK },
-				{ name: "player2" },
-			];
-			const playerName = "player1";
-			expect(canMakeMove(game, playerName)).toBe(false);
-		});
-		test("Should be able to make move if player has not made a move", () => {
-			game.players = [
-				{ name: "player1", move: Move.ROCK },
-				{ name: "player2" },
-			];
-			const playerName = "player2";
-			expect(canMakeMove(game, playerName)).toBe(true);
 		});
 	});
 

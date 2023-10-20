@@ -44,7 +44,7 @@ describe("makeMove", () => {
 			move: "rock",
 		};
 		expect(() => makeMove(gameRepository, input2)).toThrow(
-			new AppError(HttpStatusCode.FORBIDDEN, "You cannot make a move")
+			new AppError(HttpStatusCode.FORBIDDEN, "You are not in the game")
 		);
 	});
 	test("should throw error if there is no opponent", () => {
@@ -59,6 +59,7 @@ describe("makeMove", () => {
 		);
 	});
 	test("should be able to make a move if you are in the game", () => {
+		console.log("hej");
 		const game = createGame(gameRepository, "John");
 
 		const joinGameInput: JoinGameInput = {
@@ -94,7 +95,7 @@ describe("makeMove", () => {
 		makeMove(gameRepository, makeMoveInput);
 
 		expect(() => makeMove(gameRepository, makeMoveInput)).toThrow(
-			new AppError(HttpStatusCode.FORBIDDEN, "You cannot make a move")
+			new AppError(HttpStatusCode.FORBIDDEN, "You have already made a move")
 		);
 	});
 	test("should add the winner to the game if game is finished", () => {
