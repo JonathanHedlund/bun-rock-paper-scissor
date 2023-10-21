@@ -6,25 +6,13 @@ import { HttpStatusCode } from "./httpStatusCode";
 import type { IncomingHttpHeaders } from "http";
 import type { NextFunction, Request, Response } from "express";
 
-type SchemaInput = Joi.ObjectSchema | Joi.ObjectSchema[];
-
-const joinJoiSchemas = (schemas: Joi.ObjectSchema[]): Joi.ObjectSchema => {
-	let mergedSchema = Joi.object();
-	schemas.forEach((schema) => {
-		mergedSchema = mergedSchema.concat(schema);
-	});
-	return mergedSchema;
-};
-
 const validatorHelper = async (
-	schema: SchemaInput,
+	schema: Joi.ObjectSchema,
 	data: Partial<Request> | IncomingHttpHeaders,
 	next: NextFunction
 ) => {
-	const validationSchema =
-		schema instanceof Array ? joinJoiSchemas(schema) : schema;
 	try {
-		await validationSchema.validateAsync(data);
+		await schema.validateAsync(data);
 		next();
 	} catch (error) {
 		if (error instanceof ValidationError) {
@@ -34,25 +22,25 @@ const validatorHelper = async (
 	}
 };
 
-const headers = (headersSchema: SchemaInput) => {
+const headers = (headersSchema: Joi.ObjectSchema) => {
 	return (req: Request, _res: Response, next: NextFunction) => {
 		validatorHelper(headersSchema, req.headers, next);
 	};
 };
 
-const body = (bodySchema: SchemaInput) => {
+const body = (bodySchema: Joi.ObjectSchema) => {
 	return (req: Request, _res: Response, next: NextFunction) => {
 		validatorHelper(bodySchema, req.body, next);
 	};
 };
 
-const params = (paramsSchema: SchemaInput) => {
+const params = (paramsSchema: Joi.ObjectSchema) => {
 	return (req: Request, _res: Response, next: NextFunction) => {
 		validatorHelper(paramsSchema, req.params, next);
 	};
 };
 
-const query = (querySchema: SchemaInput) => {
+const query = (querySchema: Joi.ObjectSchema) => {
 	return (req: Request, _res: Response, next: NextFunction) => {
 		validatorHelper(querySchema, req.query, next);
 	};
