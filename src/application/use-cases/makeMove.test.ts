@@ -7,8 +7,8 @@ import { gameUseCases } from ".";
 import { AppError } from "../../shared/appError";
 import { HttpStatusCode } from "../../shared/httpStatusCode";
 
-import type { JoinGameByIdDto } from "../dtos/joinGameByIdDto";
-import type { MakeMoveInGameByIdDto } from "../dtos/makeMoveInGameByIdDto";
+import type { JoinGameDto } from "../dtos/joinGameDto";
+import type { MakeMoveDto } from "../dtos/makeMoveDto";
 
 describe("makeMove", () => {
 	const { joinGame, createGame, makeMove, getGameById } = gameUseCases;
@@ -19,7 +19,7 @@ describe("makeMove", () => {
 		gameRepository = memoryDatabaseService().gameRepository;
 	});
 	test("should throw error if game does not exist", () => {
-		const input: MakeMoveInGameByIdDto = {
+		const input: MakeMoveDto = {
 			id: "123",
 			name: "Ted",
 			move: "rock",
@@ -31,14 +31,14 @@ describe("makeMove", () => {
 	test("should throw error if you are not in the game", () => {
 		const game = createGame(gameRepository, "John");
 
-		const input1: MakeMoveInGameByIdDto = {
+		const input1: MakeMoveDto = {
 			id: game.id,
 			name: "Ted",
 			move: "rock",
 		};
 		joinGame(gameRepository, input1);
 
-		const input2: MakeMoveInGameByIdDto = {
+		const input2: MakeMoveDto = {
 			id: game.id,
 			name: "Jonathan",
 			move: "rock",
@@ -49,7 +49,7 @@ describe("makeMove", () => {
 	});
 	test("should throw error if there is no opponent", () => {
 		const game = createGame(gameRepository, "Ted");
-		const input: MakeMoveInGameByIdDto = {
+		const input: MakeMoveDto = {
 			id: game.id,
 			name: "Ted",
 			move: "rock",
@@ -62,63 +62,63 @@ describe("makeMove", () => {
 		console.log("hej");
 		const game = createGame(gameRepository, "John");
 
-		const JoinGameByIdDto: JoinGameByIdDto = {
+		const JoinGameDto: JoinGameDto = {
 			id: game.id,
 			name: "Ted",
 		};
-		joinGame(gameRepository, JoinGameByIdDto);
+		joinGame(gameRepository, JoinGameDto);
 
-		const MakeMoveInGameByIdDto: MakeMoveInGameByIdDto = {
+		const MakeMoveDto: MakeMoveDto = {
 			id: game.id,
 			name: "John",
 			move: "rock",
 		};
 
-		makeMove(gameRepository, MakeMoveInGameByIdDto);
+		makeMove(gameRepository, MakeMoveDto);
 		const updatedGame = getGameById(gameRepository, game.id);
 		expect(updatedGame.players[0].move).toEqual("HIDDEN");
 	});
 	test("should not be able to make a move if you have already made a move", () => {
 		const game = createGame(gameRepository, "Jonathan");
 
-		const JoinGameByIdDto: JoinGameByIdDto = {
+		const JoinGameDto: JoinGameDto = {
 			id: game.id,
 			name: "Ted",
 		};
-		joinGame(gameRepository, JoinGameByIdDto);
+		joinGame(gameRepository, JoinGameDto);
 
-		const MakeMoveInGameByIdDto: MakeMoveInGameByIdDto = {
+		const MakeMoveDto: MakeMoveDto = {
 			id: game.id,
 			name: "Jonathan",
 			move: "rock",
 		};
-		makeMove(gameRepository, MakeMoveInGameByIdDto);
+		makeMove(gameRepository, MakeMoveDto);
 
-		expect(() => makeMove(gameRepository, MakeMoveInGameByIdDto)).toThrow(
+		expect(() => makeMove(gameRepository, MakeMoveDto)).toThrow(
 			new AppError(HttpStatusCode.FORBIDDEN, "You have already made a move")
 		);
 	});
 	test("should add the winner to the game if game is finished", () => {
 		const game = createGame(gameRepository, "Jonathan");
 
-		const JoinGameByIdDto: JoinGameByIdDto = {
+		const JoinGameDto: JoinGameDto = {
 			id: game.id,
 			name: "Ted",
 		};
-		joinGame(gameRepository, JoinGameByIdDto);
+		joinGame(gameRepository, JoinGameDto);
 
-		const MakeMoveInGameByIdDto1: MakeMoveInGameByIdDto = {
+		const MakeMoveDto1: MakeMoveDto = {
 			id: game.id,
 			name: "Jonathan",
 			move: "rock",
 		};
-		const MakeMoveInGameByIdDto2: MakeMoveInGameByIdDto = {
+		const MakeMoveDto2: MakeMoveDto = {
 			id: game.id,
 			name: "Ted",
 			move: "paper",
 		};
-		makeMove(gameRepository, MakeMoveInGameByIdDto1);
-		makeMove(gameRepository, MakeMoveInGameByIdDto2);
+		makeMove(gameRepository, MakeMoveDto1);
+		makeMove(gameRepository, MakeMoveDto2);
 
 		const updatedGame = getGameById(gameRepository, game.id);
 		expect(updatedGame.winner).toEqual({ name: "Ted", move: "paper" });

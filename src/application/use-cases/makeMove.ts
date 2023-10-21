@@ -12,11 +12,11 @@ import { AppError } from "../../shared/appError";
 import { HttpStatusCode } from "../../shared/httpStatusCode";
 
 import type { GameRepository } from "../contracts/gameRepository";
-import type { MakeMoveInGameByIdDto } from "../dtos/makeMoveInGameByIdDto";
+import type { MakeMoveDto } from "../dtos/makeMoveDto";
 
 export const makeMove = (
 	gameRepository: GameRepository,
-	input: MakeMoveInGameByIdDto
+	input: MakeMoveDto
 ) => {
 	const game = gameRepository.findById(input.id);
 

@@ -7,11 +7,11 @@ import { AppError } from "../../shared/appError";
 import { HttpStatusCode } from "../../shared/httpStatusCode";
 
 import type { GameRepository } from "../contracts/gameRepository";
-import type { JoinGameByIdDto } from "../dtos/joinGameByIdDto";
+import type { JoinGameDto } from "../dtos/joinGameDto";
 
 export const joinGame = (
 	gameRepository: GameRepository,
-	input: JoinGameByIdDto
+	input: JoinGameDto
 ) => {
 	const game = gameRepository.findById(input.id);
 

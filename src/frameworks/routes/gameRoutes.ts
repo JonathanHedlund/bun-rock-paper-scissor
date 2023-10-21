@@ -25,7 +25,7 @@ export const router = (dependencies: ProjectDependencies) => {
 		.put(
 			validator.body(validationSchemas.joinGameBodySchema),
 			validator.params(validationSchemas.joinGameParamsSchema),
-			controller.joinGameById
+			controller.joinGame
 		);
 
 	router
@@ -33,13 +33,13 @@ export const router = (dependencies: ProjectDependencies) => {
 		.put(
 			validator.body(validationSchemas.makeMoveBodySchema),
 			validator.params(validationSchemas.makeMoveParamsSchema),
-			controller.makeMoveInGameById
+			controller.makeMove
 		);
 
 	router
 		.route("/:id")
 		.get(
-			validator.params(validationSchemas.getGameByIdParamsSchema),
+			validator.params(validationSchemas.getGameParamsSchema),
 			controller.getGameById
 		);
 

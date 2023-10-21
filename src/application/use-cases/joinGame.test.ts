@@ -7,8 +7,8 @@ import { gameUseCases } from ".";
 import { AppError } from "../../shared/appError";
 import { HttpStatusCode } from "../../shared/httpStatusCode";
 
-import type { JoinGameInput } from "./joinGame";
-import type { MakeMoveInput } from "./makeMove";
+import type { JoinGameDto } from "../dtos/joinGameDto";
+import type { MakeMoveDto } from "../dtos/makeMoveDto";
 
 describe("joinGame", () => {
 	const { joinGame, createGame, makeMove, getGameById } = gameUseCases;
@@ -20,7 +20,7 @@ describe("joinGame", () => {
 	});
 
 	test("should throw error if game does not exist", () => {
-		const input: JoinGameInput = {
+		const input: JoinGameDto = {
 			id: "123",
 			name: "Ted",
 		};
@@ -30,7 +30,7 @@ describe("joinGame", () => {
 	});
 	test("should throw error if you are already in the game", () => {
 		const game = createGame(gameRepository, "Ted");
-		const input: JoinGameInput = {
+		const input: JoinGameDto = {
 			id: game.id,
 			name: "Ted",
 		};
@@ -40,11 +40,11 @@ describe("joinGame", () => {
 	});
 	test("should not be able to join game if game is full", () => {
 		const game = createGame(gameRepository, "Ted");
-		const input1: JoinGameInput = {
+		const input1: JoinGameDto = {
 			id: game.id,
 			name: "John",
 		};
-		const input2: JoinGameInput = {
+		const input2: JoinGameDto = {
 			id: game.id,
 			name: "Jonathan",
 		};
@@ -56,26 +56,26 @@ describe("joinGame", () => {
 	test("should not be able to join if game is finished", () => {
 		const game = createGame(gameRepository, "Ted");
 
-		const input1: JoinGameInput = {
+		const input1: JoinGameDto = {
 			id: game.id,
 			name: "Jonathan",
 		};
 		joinGame(gameRepository, input1);
 
-		const makeMoveInput1: MakeMoveInput = {
+		const MakeMoveDto1: MakeMoveDto = {
 			id: game.id,
 			name: "Ted",
 			move: "rock",
 		};
-		const makeMoveInput2: MakeMoveInput = {
+		const MakeMoveDto2: MakeMoveDto = {
 			id: game.id,
 			name: "Jonathan",
 			move: "paper",
 		};
-		makeMove(gameRepository, makeMoveInput1);
-		makeMove(gameRepository, makeMoveInput2);
+		makeMove(gameRepository, MakeMoveDto1);
+		makeMove(gameRepository, MakeMoveDto2);
 
-		const input2: JoinGameInput = {
+		const input2: JoinGameDto = {
 			id: game.id,
 			name: "John",
 		};
@@ -86,7 +86,7 @@ describe("joinGame", () => {
 	});
 	test("should be able to join if game is pending player", () => {
 		const game = createGame(gameRepository, "Ted");
-		const input: JoinGameInput = {
+		const input: JoinGameDto = {
 			id: game.id,
 			name: "Jonathan",
 		};
