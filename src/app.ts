@@ -3,9 +3,10 @@ import express from "express";
 import { projectDependencies } from "./config/projectDependencies";
 import { apiRouter } from "./frameworks/routes";
 
-import type { Request, Response, NextFunction } from "express";
 import { AppError } from "./shared/appError";
 import { globalErrorHandler } from "./config/globalErrorHandler";
+
+import type { Request, Response, NextFunction } from "express";
 
 const API_VERSION = Bun.env.API_VERSION || "v1";
 
