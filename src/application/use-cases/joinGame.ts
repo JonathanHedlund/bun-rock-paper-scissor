@@ -1,5 +1,3 @@
-import Joi from "joi";
-
 import {
 	GameStatus,
 	determineGameStatus,
@@ -9,23 +7,11 @@ import { AppError } from "../../shared/appError";
 import { HttpStatusCode } from "../../shared/httpStatusCode";
 
 import type { GameRepository } from "../contracts/gameRepository";
-
-export type JoinGameInput = {
-	id: string;
-	name: string;
-};
-
-export const joinGameBodySchema = Joi.object({
-	name: Joi.string().max(30).min(3).required(),
-});
-
-export const joinGameParamsSchema = Joi.object({
-	id: Joi.string().required(),
-});
+import type { JoinGameByIdDto } from "../dtos/joinGameByIdDto";
 
 export const joinGame = (
 	gameRepository: GameRepository,
-	input: JoinGameInput
+	input: JoinGameByIdDto
 ) => {
 	const game = gameRepository.findById(input.id);
 

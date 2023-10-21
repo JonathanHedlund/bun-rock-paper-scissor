@@ -1,7 +1,7 @@
 import express from "express";
 
 import { gameController } from "../../interface/controllers/gameController";
-import { validationSchemas } from "../../application/contracts/validationSchemas";
+import { validationSchemas } from "../../application/validation";
 
 import { validator } from "../../shared/validator";
 
@@ -16,7 +16,7 @@ export const router = (dependencies: ProjectDependencies) => {
 		.route("/")
 		.get(controller.getAllGames)
 		.post(
-			validator.body(validationSchemas.createGameSchema),
+			validator.body(validationSchemas.createGameBodySchema),
 			controller.createGame
 		);
 

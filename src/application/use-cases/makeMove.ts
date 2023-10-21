@@ -1,4 +1,3 @@
-import Joi from "joi";
 import {
 	GameStatus,
 	Move,
@@ -13,25 +12,11 @@ import { AppError } from "../../shared/appError";
 import { HttpStatusCode } from "../../shared/httpStatusCode";
 
 import type { GameRepository } from "../contracts/gameRepository";
-
-export const makeMoveBodySchema = Joi.object({
-	name: Joi.string().max(30).min(3).required(),
-	move: Joi.string().required(),
-});
-
-export const makeMoveParamsSchema = Joi.object({
-	id: Joi.string().required(),
-});
-
-export type MakeMoveInput = {
-	id: string;
-	name: string;
-	move: string;
-};
+import type { MakeMoveInGameByIdDto } from "../dtos/makeMoveInGameByIdDto";
 
 export const makeMove = (
 	gameRepository: GameRepository,
-	input: MakeMoveInput
+	input: MakeMoveInGameByIdDto
 ) => {
 	const game = gameRepository.findById(input.id);
 

@@ -1,15 +1,10 @@
-import Joi from "joi";
 import { GameStatus } from "../../entities/gameEntity";
 
 import { AppError } from "../../shared/appError";
 import { HttpStatusCode } from "../../shared/httpStatusCode";
-
-import type { GameRepository } from "../contracts/gameRepository";
 import { hideMoves } from "../utils/presentation";
 
-export const getGameByIdParamsSchema = Joi.object({
-	id: Joi.string().required(),
-});
+import type { GameRepository } from "../contracts/gameRepository";
 
 export const getGameById = (gameRepository: GameRepository, id: string) => {
 	const game = gameRepository.findById(id);

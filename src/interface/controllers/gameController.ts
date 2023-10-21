@@ -4,8 +4,8 @@ import { HttpStatusCode } from "../../shared/httpStatusCode";
 
 import type { Request, Response, NextFunction } from "express";
 import type { ProjectDependencies } from "../contracts/projectDependencies";
-import type { JoinGameInput } from "../../application/use-cases/joinGame";
-import type { MakeMoveInput } from "../../application/use-cases/makeMove";
+import type { JoinGameByIdDto } from "../../application/dtos/joinGameByIdDto";
+import type { MakeMoveInGameByIdDto } from "../../application/dtos/makeMoveInGameByIdDto";
 
 export const gameController = (dependencies: ProjectDependencies) => {
 	const { gameRepository } = dependencies.databaseService;
@@ -26,7 +26,7 @@ export const gameController = (dependencies: ProjectDependencies) => {
 
 	const joinGameById = (req: Request, res: Response, next: NextFunction) => {
 		try {
-			const input: JoinGameInput = {
+			const input: JoinGameByIdDto = {
 				id: req.params.id,
 				name: req.body.name,
 			};
@@ -43,7 +43,7 @@ export const gameController = (dependencies: ProjectDependencies) => {
 		next: NextFunction
 	) => {
 		try {
-			const input: MakeMoveInput = {
+			const input: MakeMoveInGameByIdDto = {
 				id: req.params.id,
 				name: req.body.name,
 				move: req.body.move,
