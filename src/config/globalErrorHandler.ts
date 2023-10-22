@@ -23,9 +23,9 @@ const sendErrorProd = function (err: AppError, res: Response) {
 
 export const globalErrorHandler = (
 	err: AppError,
-	req: Request,
+	_req: Request,
 	res: Response,
-	next: NextFunction
+	_next: NextFunction
 ) => {
 	err.statusCode = err.statusCode || 500;
 	if (Bun.env.NODE_ENV === "development") {
