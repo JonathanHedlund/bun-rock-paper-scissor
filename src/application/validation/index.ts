@@ -1,12 +1,6 @@
 import { createGameBodySchema } from "./createGameValidation";
-import {
-	joinGameBodySchema,
-	joinGameParamsSchema,
-} from "./joinGameByIdValidation";
-import {
-	makeMoveBodySchema,
-	makeMoveParamsSchema,
-} from "./makeMoveInGameByIdValidation";
+import { joinGameBodySchema, joinGameParamsSchema } from "./joinGameValidation";
+import { makeMoveBodySchema, makeMoveParamsSchema } from "./makeMoveValidation";
 import { getGameParamsSchema } from "./getGameValidation";
 
 export const validationSchemas = {
