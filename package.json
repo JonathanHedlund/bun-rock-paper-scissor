@@ -16,7 +16,7 @@
     "joi": "^17.11.0"
   },
   "scripts": {
-    "start": "bun server.ts",
+    "start": "bun run ./src/server.ts",
     "dev": "bun --hot ./src/server.ts",
     "build": "bun build ./src/server.ts --outdir ./build"
   }
