@@ -59,7 +59,6 @@ describe("makeMove", () => {
 		);
 	});
 	test("should be able to make a move if you are in the game", () => {
-		console.log("hej");
 		const game = createGame(gameRepository, "John");
 
 		const JoinGameDto: JoinGameDto = {
